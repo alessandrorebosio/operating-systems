@@ -8,7 +8,7 @@ This workshop is designed to enhance your skills in Bash scripting by creating a
   - `wospace1.txt`
   - `wospace2.txt`
 ```bash
-# Command here
+touch 'with space.txt' wospace1.txt wospace2.txt 
 ```
 
 ## 2. Write and Execute `run.sh` and `printargs.sh`
@@ -25,16 +25,16 @@ This workshop is designed to enhance your skills in Bash scripting by creating a
 ## 3. Modify Scripts to Use Environment Variables
 - Create `run.sh` and `printargs.sh`:
   - `run.sh`:
-    - Stores arguments in the environment variable `NOMIFILES`.
+    - Stores arguments in the environment variable `ARGS`.
     - Executes `printargs.sh`.
-  - `printargs.sh`:
+    - `printargs.sh`:
     - Reads and prints the content of `NOMIFILES`.
 - [CODE HERE (./code/03)](./code/03)
 
 ## 4. Remove Files Containing "space" in Their Name
 - Use the `rm` command to delete all files with "space" in their name.
 ```bash
-# Command here
+rm *space*.txt
 ```
 
 ## 5. Advanced File and Directory Manipulations
@@ -46,7 +46,19 @@ This workshop is designed to enhance your skills in Bash scripting by creating a
   5. Copy the entire `/usr/include/` directory into `DELETEME` (including all files and subdirectories).
   6. Recursively list all subdirectories in `DELETEME`.
   7. Remove the `include` directory from `DELETEME` without affecting the original `/usr/include/`.
-- [CODE HERE (./code/05)](./code/05)
+```bash
+mkdir -p ~/BUTTAMI
+cd ~/BUTTAMI || exit
+touch '*' '**' '***'
+
+for file in *; do
+  cp "$file" "$file.txt"
+done
+
+cp -r /usr/include ~/BUTTAMI
+find ~/BUTTAMI -type d
+rm -rf ~/BUTTAMI/include
+```
 
 ## 6. Calculate Factorials Using Scripts
 - Write two scripts:
@@ -85,69 +97,49 @@ This workshop is designed to enhance your skills in Bash scripting by creating a
   1. Interpret backslash escapes like `\n`, `\b`, `\t`.
   2. Print a string without a trailing newline.
 ```bash
-# Commands here
+echo -e "\n \b \t"
 ```
 
 ## 10. Exclude Hidden Files in Directory Listings
 - List all files in the current directory, excluding those starting with `.`.
 ```bash
-# Command here
+ls -a .
 ```
 
 ## 11. File Information Script
-- Write a script to:
+- Write a script `file.sh` to:
   1. For each non-hidden file in the current directory:
      - Print "file is <filename>".
      - Display file properties (only the directory name if it's a directory).
-```bash
-# Commands here
-```
+     - use a single-line `for` loop
+     - Check if `ls` succeeded, print "ls produced an error" if it failed
+- [CODE HERE (./code/11)](./code/11)
 
-## 12. Single-Line `for` Loop Script
-- Modify the script from the previous task to use a single-line `for` loop.
-```bash
-# Commands here
-```
-
-## 13. Handle `ls` Errors in Scripts
-- Update the script to:
-  - Check if `ls` succeeded.
-  - Print "ls produced an error" if it failed.
-```bash
-# Commands here
-```
-
-## 14. Create Files with Spaces in Their Names
+## 12. Create Files with Spaces in Their Names
 - Create a file named `alfa beta.txt`.
 ```bash
-# Command here
+touch "alfa beta.txt"
 ```
 
-## 15. Generate Triplets of File Names
+## 13. Generate Triplets of File Names
 - Write a script `triple.sh` to:
   - Print all triplets of non-hidden files in the current directory in the format `(X;Y;Z)`.
-```bash
-# Commands here
-```
+- [CODE HERE (./code/13)](./code/13)
 
-## 16. Process Even and Odd Arguments
+## 14. Process Even and Odd Arguments
 - Write a script `arguments.sh` to:
   - Concatenate arguments at even indices.
   - Follow with arguments at odd indices.
 - Pass `;` as an argument and fix any errors.
-```bash
-# Commands here
-```
+- [CODE HERE (./code/14)](./code/14)
 
-## 17. Sum of Squares Script
+## 15. Sum of Squares Script
 - Write `sum.sh` to:
   - Take positive integers as arguments.
   - Compute the sum of their squares minus the sum of their indices.
-```bash
-# Commands here
-```
+- [CODE HERE (./code/15)](./code/15)
 
-## 18. Environment Variable Management Scripts
+## 16. Environment Variable Management Scripts
 - Write four scripts:
   - `define.sh`: Creates the environment variable `VAR` and sets it to "START".
   - `use.sh`: Prints the content of `VAR`.
@@ -157,5 +149,20 @@ This workshop is designed to enhance your skills in Bash scripting by creating a
     2. Print its value.
     3. Remove it.
     4. Verify it has been removed.
-- [CODE HERE (./code/18)](./code/18)
+- [CODE HERE (./code/16)](./code/16)
 
+---
+
+### Summary of Scripts and Commands
+| **Action**                                     | **Command**       |
+|-----------------------------------------------|-------------------|
+| Print arguments in a loop                     | `for`            |
+| Pass arguments to a script                    | `"$@"`           |
+| List directories recursively                  | `find`           |
+| Reverse argument order                        | `${!i}`          |
+| Print with special characters                 | `echo -e`        |
+| Generate file triplets                        | Nested `for`     |
+| Concatenate even and odd arguments            | Indexed `for`    |
+| Calculate sum of squares minus index sum      | Arithmetic `for` |
+| Define environment variables                  | `export`         |
+| Unset environment variables                   | `unset`          |
