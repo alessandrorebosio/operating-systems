@@ -23,7 +23,7 @@ PIPPO="${USER}:${HOME}:${DISPLAY}"
 ```
 
 ### **Write a Bash Script `pippo.sh` to Create the `PIPPO` Variable**  
-Create a script that defines and exports the variable `PIPPO`. Save it as [pippo.sh](./code/pippo.sh).  
+Create a script that defines and exports the variable `PIPPO`. Save it as [`pippo.sh`](./code/pippo.sh).  
 
 ## Navigation and File Manipulation  
 
