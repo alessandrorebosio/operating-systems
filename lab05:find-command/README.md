@@ -46,8 +46,8 @@ ciascuna riga di testo il Nome, il Cognome, la Matricola e il Voto ottenuti dall
 studente nellla prova pratica N° 1 e N° 2 rispettivamente. Ciascun Nome e ciascun
 Cognome è composto da una sola parola. Il numero di matricola è univoco. Il
 Cognome e il nome, invece, potrebbero essere ripetuti. Il voto può essere non
-sufficiente ( voto < 18).
-Scrivere uno script bash insuff2.sh che metta in output l'elenco dei soli studenti che
+sufficiente (voto < 18).
+Scrivere uno script bash `insuff2.sh` che metta in output l'elenco dei soli studenti che
 rispettano TUTTE le seguenti caratteristiche:
 - Hanno sostenuto la seconda prova prativa, ottenendo un voto NON sufficiente,
 - Non hanno sostenuto la prima prova pratica.
