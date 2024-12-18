@@ -4,7 +4,7 @@ exec {FD}< /usr/include/stdio.h
 
 if (( $? == 0 )) ; then
     NUM=0
-        while read -u ${FD} -N 1 -r A ; do
+        while read -u ${FD} -N 1 -r A; [[ $? == 0 || ${A} != "" ]]; do
             echo ${A}
             (( NUM++ ))
         done

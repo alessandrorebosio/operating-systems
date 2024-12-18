@@ -1,6 +1,5 @@
 #!/bin/bash
 
-while read A B C D; do
+while read A B C D; [[ $? == 0 || ${A} != "" ]]; do
     echo ${D} ${C}
-done < <(cat ./stars.txt; echo "")
-
+done < stars.txt
