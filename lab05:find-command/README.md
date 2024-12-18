@@ -1,81 +1,61 @@
-# Workshop 5:
+# Workshop 5: Find Command and Process Handling
 
+This workshop focuses on writing Bash scripts for searching files, processing environment variables, managing recursive script calls, and handling complex data processing tasks.
 
-## 
-Scrivere 2 script:
-- `find.sh`: 
-  - prende come argomenti un percorso assoluto di una directory, ed una stringa che continene il nome di file.
-  - deve far visualizzare a video il percorso assoluto di tutti i file il cui corrisponde alla stringa passata come secondo argomento, partendo dalla directory specificata come primo argomento, e includendo nella ricerca tutte le sottodirectory.
-- `run_find.sh` che lancia lo script find.sh passandogli nell'adatto modo proprio la directory iniziale /usr/include/ e la stringa *std*.h
-
-## 
-Visualizzare a video il nome dei file che soddisfano due condizioni 
-1. stanno nelle directory immediatamente figlie della directory /usr/include/ 
-2. hanno nome che termina con net.h
-
-### 
-Visualizzare a video le prime tre righe di ciascun file che sta nella directory
-/usr/include/ e in tutte le sue sottodirectory. Attenzione alle directory.
-Aggiungere un comando in pipe al comando precedente per visualizzare solo i primi
-3 caratteri di ciascuna riga. `find_first_row.h`
-
-
-## 
-Scrivere uno script `split.sh` che
-- separa i diversi percorsi contenuti nella variabile di ambiente PATH (che vi
-ricordo sono separati da : ).
-- e li visualizza uno per uno sullo standard output, ciascun percorso trovato in una
-riga di output che dopo il percorso contiene la lunghezza del percorso.
-
-##
-Scrivere uno script bash `descendants.sh`, che prende un argomento intero a riga di
-comando. L'intero indica il numero di script figli da lanciare.
-Ad esempio, all'inizio lo script potrebbe essere lanciato passandogli come
-argomento "3". Lo script controlla l'argomento che gli è stato passato.
-- Se il valore dell'argomento è maggiore di 0, lo script lancia in background lo
-script stesso tante volte quanto il valore dell'argomento intero e passa come
-argomento a ciascuno script proprio quel valore intero diminuito di 1. Poi lo
-script attende la fine di tutti i suoi processi figli. Poi stampa a video l'argomento
-che gli è stato passato. Infine termina restituendo 0.
-- Se invece il valore dell'argomento è uguale a zero, allora lo script stampa a
-video l'argomento che gli è stato passato e poi termina restituendo 0.
-
-## 
-I due file RisultatiProvaPratica1.txt e RisultatiProvaPratica2.txt contengono in
-ciascuna riga di testo il Nome, il Cognome, la Matricola e il Voto ottenuti dallo
-studente nellla prova pratica N° 1 e N° 2 rispettivamente. Ciascun Nome e ciascun
-Cognome è composto da una sola parola. Il numero di matricola è univoco. Il
-Cognome e il nome, invece, potrebbero essere ripetuti. Il voto può essere non
-sufficiente (voto < 18).
-Scrivere uno script bash `insuff2.sh` che metta in output l'elenco dei soli studenti che
-rispettano TUTTE le seguenti caratteristiche:
-- Hanno sostenuto la seconda prova prativa, ottenendo un voto NON sufficiente,
-- Non hanno sostenuto la prima prova pratica.
-L'output deve essere formattato su più righe di testo. Ciascuna riga contiene le
-informazioni su uno studente, in particolare la Matricola, il Nome, il Cognome ed il
-voto ottenuto nella seconda prova pratica, in quest'ordine. Le righe dell'output
-devono essere ordinate secondo il Cognome, in senso crescente.
-```plaintext
-Avio Verdi 876754 21
-Dee Bord 666666 20
-Rino Ceronte 222222 13
-Caio Baro 777777 27
+## Search Files
+Write a command:
+  - Accepts two arguments: an absolute path to a directory and a string representing part of a file name.  
+  - Prints the absolute path of all files whose names match the string, starting from the given directory and including all subdirectories.
+And run passing `/usr/include/` as the starting directory and `*std*.h` as the string to search.
+```bash
+find '/usr/include' -name '*std*.h' -print
 ```
-```plaintext
-Carmine Ati 8888 23
-Paolo Venzi 333333 9
-Dee Bord 666666 12
-Sante Bo 888888 14
+
+## List Specific Files by Pattern
+Write a command to:  
+1. Display the names of files located in the immediate subdirectories of `/usr/include/`.  
+2. Filter for files with names ending in `net.h`.
+```bash
+find /usr/include/ -maxdepth 2 -iname '*net.h' 
 ```
+
+## Display First Three Lines of Files
+Create a command sequence to:  
+1. Print the first three lines of each file in `/usr/include/` and all its subdirectories, while ignoring directories.  
+2. Add a pipeline to display only the first three characters of each printed line. 
+```bash
+find /usr/include -type f -exec head -n 3 {} \; | cut -b -3 
+```
+
+## Split and Analyze PATH Variable
+Write a script [`split.sh`](./code/split.sh) that:  
+- Splits the `PATH` environment variable into individual paths (separated by `:`).  
+- Prints each path on a new line, followed by its character length.
+
+## Recursive Process Calls
+Create a script [`descendants.sh`](./code/descendants.sh) that:  
+- Accepts an integer as a command-line argument.  
+- If the argument is greater than 0:  
+  - Spawns the script itself as a background process, decrementing the argument by 1 for each instance.  
+  - Waits for all child processes to finish.  
+  - Prints the original argument before terminating.  
+- If the argument is 0, prints the value and terminates.
+
+## Filter Non-Sufficient Students
+Write a script [`insuff2.sh`](./code/insuff2.sh) that processes two files: [`RisultatiProvaPratica1.txt`](./code/RisultatiProvaPratica1.txt) and [`RisultatiProvaPratica2.txt`](./code/RisultatiProvaPratica2.txt). 
+- Each line contains `Name, Surname, ID, Grade`.  
+- Extract students who:  
+  1. Did not take the first exam.  
+  2. Took the second exam and scored below 18.  
+- Output must include `ID, Name, Surname, Grade`
+
+#### Output Example:
 ```plaintext
 888888 Sante Bo 14
 333333 Paolo Venzi 9
 ```
 
-##
-Scrivere uno script bash `find_recents.sh` che comincia cercando tutti i file con estensione .h in
-tutte le sottodirectory della directory /usr/include/linux/ escludendo i files che si trovano
-direttamente nella directory /usr/include/linux/
-Confrontare la data di ultima modifica dei file così trovati e stampare a video il nome del file
-modificato più recentemente.
-
+## Find Most Recent File
+Write a script [`more_recent.sh`](./code/more_recent.sh) that:  
+- Searches all `.h` files in the subdirectories of `/usr/include/linux/` (excluding files directly within `/usr/include/linux/`).  
+- Finds and prints the name of the file most recently modified.

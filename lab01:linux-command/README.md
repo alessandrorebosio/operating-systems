@@ -23,7 +23,7 @@ cd / && ls ~
 ### **Create Nested Directories and Manipulate Files**  
 Perform the following tasks:  
 1. Create the directory structure:  
-   ```
+   ```plaintext
    A1/
    └── B2/
        └── C3/

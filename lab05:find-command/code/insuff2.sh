@@ -1,17 +1,10 @@
 #!/bin/bash
 
-print=0
-while read NAME2 SURNAME2 ID2 VOTE2; [[ $? == 0 || ${NAME2} != "" ]]; do
-    while read NAME1 SURNAME1 ID1 VOTE1; [[ $? == 0 || ${NAME1} != "" ]]; do
-        if [[ ${VOTE2} -lt 18 ]]; then 
-            if [[ ${ID1} == ${ID2} ]]; then 
-                print=0
-            fi
+while read NAME SURNAME ID VOTE; [[ $? == 0 || ${NAME} != "" ]]; do
+    if [[ ${VOTE} -lt 18 ]]; then
+        LINES=`grep ${ID} RisultatiProvaPratica1.txt | wc -l`
+        if [[ ${LINES} -eq 0 ]] ; then
+            echo ${ID} ${NAME} ${SURNAME} ${VOTE}
         fi
-    done < RisultatiProvaPratica1.txt
-
-    if [[ ${print} -eq 1 ]]; then
-        echo ${NAME2} ${SURNAME2} ${ID2} ${VOTE2}
     fi
-    print=1
-done < RisultatiProvaPratica2.txt 
+done < RisultatiProvaPratica2.txt | sort -k 3

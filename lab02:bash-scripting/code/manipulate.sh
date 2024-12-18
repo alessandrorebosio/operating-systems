@@ -5,7 +5,7 @@ cd ~/DELETEME || exit
 touch '*' '**' '***' ';;'
 
 for file in *; do
-  cp "$file" "$file.txt"
+	cp "$file" "$file.txt"
 done
 
 cp -r /usr/include ~/DELETEME
