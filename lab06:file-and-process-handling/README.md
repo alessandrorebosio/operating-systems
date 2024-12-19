@@ -1,4 +1,4 @@
-# Workshop 5: Advanced File and Process Handling
+# Workshop 6: Advanced File and Process Handling
 
 This workshop explores advanced Bash scripting techniques, including process synchronization, file handling, and data manipulation. Follow the tasks below to implement and test the required scripts.
 

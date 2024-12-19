@@ -1,4 +1,4 @@
-# Workshop 5: Find Command and Process Handling
+# Workshop 5: Find Command
 
 This workshop focuses on writing Bash scripts for searching files, processing environment variables, managing recursive script calls, and handling complex data processing tasks.
 
