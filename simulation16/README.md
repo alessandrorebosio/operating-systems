@@ -1,13 +1,15 @@
+# Simulation: Bash Scripting Tasks
 
-Esiste un file divani.txt che contiene una riga per ciascun divano prodotto da una ditta. In ogni riga,
-separati da spazi, ci sono il nome del divano (una sola parola), la larghezza, l'altezza e la profondità
-espresse in cm.
-Scrivere uno script divani.sh che prende esattamente due argomenti, la larghezza minima e l'altezza
-massima.
-Lo script deve stampare a video l'elenco dei divani che rispettano due proprietà:
-1) la loro larghezza è maggiore o uguale della larghezza passata come primo argomento;
-2) la loro altezza è minore o uguale della altezza passata come secondo argomento allo script;
-Usare come file divani.txt il seguente.
+This workshop focuses on advanced file processing, recursion, and data manipulation using Bash scripts. Below are the problem descriptions and expected script behaviors.
+
+## Filter Sofas by Dimensions:
+Create a script [`sofa.sh`](./code/sofa.sh) that:  
+- Accepts **exactly two arguments**: minimum width and maximum height.  
+- Filters the entries in [`sofa.txt`](./code/sofa.txt) to display only sofas that meet the following criteria:  
+  1. Width ≥ minimum width.  
+  2. Height ≤ maximum height.
+
+#### Input Example (`sofa.txt`):  
 ```plaintext
 divano1 200 83 105
 Divano2 170 85 115
@@ -16,88 +18,135 @@ divano4 170 85 115
 divanO5 220 70 145
 ```
 
-Sia dato un file di testo multe.txt in cui, in ciascuna riga, e' contenuto il nome e il cognome di un guidatore,
-l'ammontare della multa e la data (giorno, mese, anno) in cui la multa gli è stata comminata.
-I diversi campi in ciascuna riga sono separati da TAB o da spazi bianchi, scegliete voi.
-Le righe del file sono ordinate in modo crescente secondo il valore della multa.
-Ovviamente lo stesso valore può esistere più volte nel file.
-Scrivere uno script bash, avente nome contamulte.sh, che viene eseguito lanciando questa riga di
-comando./contamulte.sh < multe.txt
-e che produce il seguente risultato:
-per ciascun valore di multa presente in quel file multe.txt, stampare una riga di testo contenente : il
-valore della multa e il numero di volte che quel valore si ripete nel file.
+#### Command:  
+```bash
+./sofa.sh 180 80
+```
 
-Un file di testo lista.txt (passato insieme a questo stesso file .pdf nell'archivio tgz)
-contiene l'elenco degli iscritti ad un esame scritto in cui ci sono studenti per quattro
-esami, precisamente "SISTEMI OPERATIVI", "SISTEMI VIRTUALIZZATI", "SYSTEMS
-INTEGRATION" e "VIRTUALIZZAZIONE E INTEGRAZIONE DI SISTEMI".
-Nel file, per ciascuno studente iscritto, ci sono 3 righe, seguite da una riga vuota, il
-cui contenuto è il seguente:
-DATA ORA_INIZIO
-MATRICOLA COGNOME NOME
-NOME_ESAME
-Scrivere uno script selezmatricola.sh che mette in output le matricole degli studenti
-che vogliono sostenere l'esame di SISTEMI OPERATIVI, una riga per ciascuna
-matricola.
-Suggerimento:
-il comando grep ha due opzioni-B 1--no-group-separator che consente di mettere
-in output ANCHE LA RIGA che precede quella che contiene la word selezionata.
-il comando grep ha una opzione -v che consente di mettere in output le righe che
-NON CONTENGONO la word passata a grep come argomento
-Vedere la slide successiva per un esempio di input ed output.
+#### Output Example:  
+```plaintext
+divaNo3 185 65 99
+divanO5 220 70 145
+```
 
-Scrivere uno script contaripetizionicar.sh che accetta una stringa come argomento e
-stampa a video il numero di volte che ciascun carattere compare nella stringa.
-In particolare, stampare a video tante righe quanti i caratteri diversi trovati nella
-stringa, nella forma: NumeroVolteCheQuelCarattereCompare Carattere
-Ad esempio, se viene passato come argomento la stringa pescecane
-Dovreste vedere come output qualcosa di simile a questo:
+## Count Traffic Fines by Value:
+Create a script [`penalty.sh`](./code/penalty.sh) that:  
+- Accepts a text file [`penalty.txt`](./code/penalty.txt) as an argument.  
+- Counts and prints the frequency of each unique fine amount.
+
+#### Input Example (`penalty.txt`):  
+```plaintext
+Luca    Andreucci       57     11   maggio 2014
+Giovanni    Pau         57     20   aprile 2015
+Luca  Andreucci        123     28   luglio 2015
+Astolfo Isoardi        160     21 dicembre 2015
+Vittorio  Ghini       1000     17 febbraio 2016
+Gilles Villeneuve     1000     1   gennaio 1978
+```
+
+#### Command:  
+```bash
+./penalty.sh < penalty.txt
+```
+
+#### Output Example:  
+```plaintext
+57      2
+123     1
+160     1
+1000    2
+```
+
+## Extract Matriculation Numbers for a Specific Exam:
+Create a script [`id.sh`](./code/id.sh) that:  
+- Extracts matriculation numbers of students registered for the "SISTEMI OPERATIVI" exam.  
+
+#### Input Example [`exams.txt`](./code/exams.txt):  
+```plaintext
+01/03/2024 09:00
+12345 Rossi Mario
+SISTEMI OPERATIVI
+
+02/03/2024 11:00
+54321 Verdi Giulia
+SISTEMI VIRTUALIZZATI
+
+03/03/2024 10:00
+67890 Bianchi Anna
+SISTEMI OPERATIVI
+```
+
+#### Output Example:  
+```plaintext
+12345
+67890
+```
+
+## Count Character Frequencies:
+Create a script [`counter1.sh`](./code/counter1.sh) that:  
+- Accepts a string as an argument.  
+- Prints the frequency of each character in the string in the format: `Count Character`.  
+
+#### Command:  
+```bash
+./counter1.sh pescecane
+```
+
+#### Output Example:  
+```plaintext
 1 a
 2 c
 3 e
 1 n
 1 p
 1 s
-Suggerimenti:
-Provare a stampare a video una riga con ogni carattere che compare nella stringa.
-Avrete così tante righe, con lo stesso carattere, quante sono le volte che il carattere
-compare nella stringa.
-Provate poi ad applicare il comando sort.
-Poi usate il man (e provatelo) per vedere cosa fa il comando uniq -c
+```
 
-Partendo dal precedente esercizio alfa, scrivere uno script contaripetizionicar2.sh che
-accetta una stringa come argomento e stampa a video il numero di volte che ciascun
-carattere compare nella stringa.
-In particolare, stampare a video tante righe quanti i caratteri diversi trovati nella
-stringa, nella forma: Carattere NumeroVolteCheQuelCarattereCompare
-Cioè i due campi sono in posizione invertita rispetto al precedente esercizio
-Ad esempio, se viene passato come argomento la stringa pescecane
-Dovreste vedere come output qualcosa di simile a questo:
+## Count Character Frequencies (Reordered):
+Create a new script [`counter2.sh`](./code/counter2.sh) taking the previous script to output character frequencies in the format: `Character Count`. 
+
+#### Command:  
+```bash
+./counter2.sh pescecane
+```
+
+#### Output Example:  
+```plaintext
 a 1
 c 2
 e 3
 n 1
 p 1
 s 1
+```
 
-Ordinamento inverso di righe di un file mediante ricorsione:
-Scrivere uno script inverti2.sh che prende come argomento il percorso di un file di
-testo e stampa le righe di quel file in ordine inverso, cioè dall'ultima riga alla prima.
-Si suppone che il file non abbia tantissime righe.
-Si suppone che il file non contenga metacaratteri o stringhe che possono causare
-espansioni bash.
-Utilizzare un approccio ricorsivo.
-Potete utilizzare anche più di uno script, facendoli chiamare dallo script principale
-inverti2.sh
-Se il file contiene le righe seguenti:
+## Reverse File Lines with Recursion:
+Create a script [`invert-rec.sh`](./code/invert-rec.sh) that:  
+- Reads a file passed as an argument.  
+- Prints its lines in reverse order using **recursion**.  
+
+#### Input Example:  
+```plaintext
 Alfa beta gamma
 Gatto cane serpente maiale
 Asdrubale teofilo
+```
 
-Ordinamento inverso di righe di un file SENZA RICORSIONE:
-Scrivere uno script inverti2.sh che prende come argomento il percorso di un file di
-testo e stampa le righe di quel file in ordine inverso, cioè dall'ultima riga alla prima.
-Si suppone che il file non abbia tantissime righe.
-Si suppone che il file non contenga metacaratteri o stringhe che possono causare
-espansioni bash.
-Utilizzare un approccio CHE NON SFRUTTI LA RICORSIONE
+#### Command:  
+```bash
+./invert-rec.sh file.txt
+```
+
+#### Output Example:  
+```plaintext
+Asdrubale teofilo
+Gatto cane serpente maiale
+Alfa beta gamma
+```
+
+## Reverse File Lines without Recursion:
+Modify the script [`invert-iter.sh`](./code/invert-iter.sh) to:  
+- Print lines in reverse order using a **non-recursive** approach.  
+
+#### Command and Output: 
+Same as above.
