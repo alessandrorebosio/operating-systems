@@ -1,4 +1,4 @@
-# Simulation: Bash Scripting Tasks
+# # Workshop 8: Simulation
 
 This workshop focuses on advanced file processing, recursion, and data manipulation using Bash scripts. Below are the problem descriptions and expected script behaviors.
 
